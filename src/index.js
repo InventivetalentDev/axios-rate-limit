@@ -96,6 +96,10 @@ AxiosRateLimit.prototype.shift = function () {
   this.timeslotRequests += 1
 }
 
+AxiosRateLimit.prototype.length = function () {
+  return this.queue.length
+}
+
 /**
  * Apply rate limit to axios instance.
  *
