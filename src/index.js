@@ -105,6 +105,10 @@ AxiosRateLimit.prototype.shift = function () {
   this.timeslotRequests += 1
 }
 
+AxiosRateLimit.prototype.getTimeslot = function () {
+  return this.timeslotRequests
+}
+
 AxiosRateLimit.prototype.getSize = function () {
   return this.queue.length
 }
@@ -146,6 +150,10 @@ function axiosRateLimit (axios, options) {
   axios.setMaxRPS = AxiosRateLimit.prototype.setMaxRPS.bind(rateLimitInstance)
   axios.setRateLimitOptions = AxiosRateLimit.prototype.setRateLimitOptions
     .bind(rateLimitInstance)
+  axios.getTimeslot = AxiosRateLimit.prototype.getTimeslot
+    .bind(rateLimitInstance)
+  axios.getSize = AxiosRateLimit.prototype.getSize.bind(rateLimitInstance)
+  axios.getWaiting = AxiosRateLimit.prototype.getWaiting.bind(rateLimitInstance)
 
   return axios
 }

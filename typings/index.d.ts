@@ -10,7 +10,7 @@ export interface RateLimitedAxiosInstance extends AxiosInstance {
    // push(requestHandler:any):any,
    // shiftInitial():any,
    // shift():any
-   readonly timeslotRequests: number
+   getTimeslot(): number
    getSize(): number
    getWaiting(): number
 }
