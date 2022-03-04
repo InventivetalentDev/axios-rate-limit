@@ -11,8 +11,8 @@ export interface RateLimitedAxiosInstance extends AxiosInstance {
    // shiftInitial():any,
    // shift():any
    readonly timeslotRequests: number
-   get size(): number
-   get waiting(): number
+   getSize(): number
+   getWaiting(): number
 }
 
 export type rateLimitOptions = { maxRequests?: number, perMilliseconds?: number, maxRPS?:number };

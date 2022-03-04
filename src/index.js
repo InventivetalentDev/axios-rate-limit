@@ -105,11 +105,11 @@ AxiosRateLimit.prototype.shift = function () {
   this.timeslotRequests += 1
 }
 
-AxiosRateLimit.prototype.size = function () {
+AxiosRateLimit.prototype.getSize = function () {
   return this.queue.length
 }
 
-AxiosRateLimit.prototype.waiting = function () {
+AxiosRateLimit.prototype.getWaiting = function () {
   return this.waitingRequests
 }
 
