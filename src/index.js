@@ -1,7 +1,6 @@
 function AxiosRateLimit (axios) {
   this.queue = []
   this.timeslotRequests = 0
-  this.waitingRequests = 0
 
   this.interceptors = {
     request: null,
@@ -51,16 +50,8 @@ AxiosRateLimit.prototype.enable = function (axios) {
 }
 
 AxiosRateLimit.prototype.handleRequest = function (request) {
-  this.waitingRequests++
-  // eslint-disable-next-line es5/no-block-scoping
-  let self = this
   return new Promise(function (resolve) {
-    this.push({
-      resolve: function () {
-        self.waitingRequests--
-        resolve(request)
-      }
-    })
+    this.push({ resolve: function () { resolve(request) } })
   }.bind(this))
 }
 
@@ -105,16 +96,12 @@ AxiosRateLimit.prototype.shift = function () {
   this.timeslotRequests += 1
 }
 
-AxiosRateLimit.prototype.getTimeslot = function () {
+AxiosRateLimit.prototype.getTimeslotRequests = function () {
   return this.timeslotRequests
 }
 
 AxiosRateLimit.prototype.getSize = function () {
   return this.queue.length
-}
-
-AxiosRateLimit.prototype.getWaiting = function () {
-  return this.waitingRequests
 }
 
 /**
@@ -150,10 +137,9 @@ function axiosRateLimit (axios, options) {
   axios.setMaxRPS = AxiosRateLimit.prototype.setMaxRPS.bind(rateLimitInstance)
   axios.setRateLimitOptions = AxiosRateLimit.prototype.setRateLimitOptions
     .bind(rateLimitInstance)
-  axios.getTimeslot = AxiosRateLimit.prototype.getTimeslot
+  axios.getTimeslotRequests = AxiosRateLimit.prototype.getTimeslotRequests
     .bind(rateLimitInstance)
   axios.getSize = AxiosRateLimit.prototype.getSize.bind(rateLimitInstance)
-  axios.getWaiting = AxiosRateLimit.prototype.getWaiting.bind(rateLimitInstance)
 
   return axios
 }
