@@ -1,6 +1,7 @@
 function AxiosRateLimit (axios) {
   this.queue = []
   this.timeslotRequests = 0
+  this.waitingRequests = 0
 
   this.interceptors = {
     request: null,
@@ -50,8 +51,16 @@ AxiosRateLimit.prototype.enable = function (axios) {
 }
 
 AxiosRateLimit.prototype.handleRequest = function (request) {
+  this.waitingRequests++
+  // eslint-disable-next-line es5/no-block-scoping
+  let self = this
   return new Promise(function (resolve) {
-    this.push({ resolve: function () { resolve(request) } })
+    this.push({
+      resolve: function () {
+        self.waitingRequests--
+        resolve(request)
+      }
+    })
   }.bind(this))
 }
 
@@ -98,6 +107,10 @@ AxiosRateLimit.prototype.shift = function () {
 
 AxiosRateLimit.prototype.size = function () {
   return this.queue.length
+}
+
+AxiosRateLimit.prototype.waiting = function () {
+  return this.waitingRequests
 }
 
 /**
