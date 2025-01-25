@@ -42,6 +42,10 @@ AxiosRateLimit.prototype.getTimeslotRequests = function () {
   return this.timeslotRequests
 }
 
+AxiosRateLimit.prototype.getMaxRequests = function () {
+  return this.maxRequests
+}
+
 AxiosRateLimit.prototype.enable = function (axios) {
   function handleError (error) {
     return Promise.reject(error)
