@@ -10,6 +10,7 @@ export interface RateLimitedAxiosInstance extends AxiosInstance {
     setMaxRPS: (rps: number) => void,
     setRateLimitOptions: (options: rateLimitOptions) => void,
     getTimeslotRequests: () => number,
+    getTimeslotMilliseconds: () => number,
     getMaxRequests: () => number,
     // enable(axios: any): void,
     // handleRequest(request:any):any,

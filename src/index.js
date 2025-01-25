@@ -42,6 +42,10 @@ AxiosRateLimit.prototype.getTimeslotRequests = function () {
   return this.timeslotRequests
 }
 
+AxiosRateLimit.prototype.getTimeslotMilliseconds = function () {
+  return this.perMilliseconds
+}
+
 AxiosRateLimit.prototype.getMaxRequests = function () {
   return this.maxRequests
 }
