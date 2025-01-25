@@ -38,6 +38,10 @@ AxiosRateLimit.prototype.setRateLimitOptions = function (options) {
   }
 }
 
+AxiosRateLimit.prototype.getTimeslotRequests = function () {
+  return this.timeslotRequests
+}
+
 AxiosRateLimit.prototype.enable = function (axios) {
   function handleError (error) {
     return Promise.reject(error)
@@ -163,6 +167,8 @@ function axiosRateLimit (axios, options) {
   axios.getMaxRPS = AxiosRateLimit.prototype.getMaxRPS.bind(rateLimitInstance)
   axios.setMaxRPS = AxiosRateLimit.prototype.setMaxRPS.bind(rateLimitInstance)
   axios.setRateLimitOptions = AxiosRateLimit.prototype.setRateLimitOptions
+    .bind(rateLimitInstance)
+  axios.getTimeslotRequests = AxiosRateLimit.prototype.getTimeslotRequests
     .bind(rateLimitInstance)
 
   return axios
