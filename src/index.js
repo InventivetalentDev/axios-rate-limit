@@ -178,6 +178,10 @@ function axiosRateLimit (axios, options) {
     .bind(rateLimitInstance)
   axios.getTimeslotRequests = AxiosRateLimit.prototype.getTimeslotRequests
     .bind(rateLimitInstance)
+  axios.getTimeslotMilliseconds = AxiosRateLimit.prototype
+    .getTimeslotMilliseconds.bind(rateLimitInstance)
+  axios.getMaxRequests = AxiosRateLimit.prototype.getMaxRequests
+    .bind(rateLimitInstance)
 
   return axios
 }
